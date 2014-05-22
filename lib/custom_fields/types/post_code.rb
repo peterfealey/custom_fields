@@ -25,10 +25,10 @@ module CustomFields
             
             klass.after_save do |object|
             	
-              base_google_url = "http://www.nearby.org.uk/api/convert.php?key=fee6e24d03fc6e&p="
+              base_bing_url = "http://dev.virtualearth.net/REST/v1/Locations?key=AnFSmb8o_vAoGz45q1b2lbLJQT7rmZdPKdI98-o_HWOZVPT57iUJLLKLLlT3DB1Y&q="
     		  addr = self.postcode
             
-    		  res = RestClient.get(URI.encode("#{base_google_url}#{addr}"))
+    		  res = RestClient.get(URI.encode("#{base_bing_url}#{addr}"))
     		  parsed_res = Crack::XML.parse(res)
     		  
 			  lat = parsed_res["convert"]["output"]["l1"]["lat"] || 1
