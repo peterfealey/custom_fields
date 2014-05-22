@@ -25,14 +25,14 @@ module CustomFields
             
             klass.after_save do |object|
             	
-              base_google_url = "http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&address="
+              base_google_url = "http://www.nearby.org.uk/api/convert.php?key=fee6e24d03fc6e&p="
     		  addr = self.postcode
             
     		  res = RestClient.get(URI.encode("#{base_google_url}#{addr}"))
     		  parsed_res = Crack::XML.parse(res)
     		  
-			  lat = parsed_res["GeocodeResponse"]["result"]["geometry"]["location"]["lat"] || 1
-              lng = parsed_res["GeocodeResponse"]["result"]["geometry"]["location"]["lng"] || 1             
+			  lat = parsed_res["convert"]["output"]["l1"]["lat"] || 1
+              lng = parsed_res["convert"]["output"]["l1"]["long"] || 1             
               self.lat = lat
               self.lng = lng
               self.save
