@@ -26,7 +26,7 @@ module CustomFields
             klass.before_save do |object|
             	
               base_google_url = "http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&address="
-    		  addr = post_code
+    		  addr = self.postcode
             
     		  res = RestClient.get(URI.encode("#{base_google_url}#{addr}"))
     		  parsed_res = Crack::XML.parse(res)
