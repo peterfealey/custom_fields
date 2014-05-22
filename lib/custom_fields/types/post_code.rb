@@ -33,8 +33,9 @@ module CustomFields
     		  
 			  lat = parsed_res["GeocodeResponse"]["result"]["geometry"]["location"]["lat"] || 1
               lng = parsed_res["GeocodeResponse"]["result"]["geometry"]["location"]["lng"] || 1             
-              self.send(:"#{lat}=", lat)
-              self.send(:"#{lng}=", lng)
+              self.lat = lat
+              self.lng = lng
+              self.save
               
               
               
