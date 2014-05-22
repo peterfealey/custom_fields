@@ -5,7 +5,7 @@ module CustomFields
 
   module Types
 
-    module Post_code
+    module PostCode
 
       module Field; end
 
