@@ -41,7 +41,6 @@ module CustomFields
             end
             
           end
-herp
           # Build a hash storing the raw value for
           # a string custom field of an instance.
           #
