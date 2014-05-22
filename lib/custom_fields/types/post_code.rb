@@ -26,14 +26,14 @@ module CustomFields
             klass.after_save do |object|
             	
               @base_google_url = "http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&address="
-    		  @addr = object.post_code
+    		  @addr = klass.post_code
             
     		  res = RestClient.get(URI.encode("#{@base_google_url}#{@addr}"))
     		  parsed_res = Crack::XML.parse(res)
               lat = parsed_res["GeocodeResponse"]["result"]["geometry"]["location"]["lat"]
               lng = parsed_res["GeocodeResponse"]["result"]["geometry"]["location"]["lng"]              
-              object.send(:"#{lat}=", lat)
-              object.send(:"#{lng}=", lng)
+              klass.send(:"#{lat}=", lat)
+              klass.send(:"#{lng}=", lng)
               
               
               
