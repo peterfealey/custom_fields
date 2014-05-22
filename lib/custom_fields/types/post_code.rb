@@ -18,7 +18,15 @@ module CustomFields
           # @param [ Hash ] rule It contains the name of the field and if it is required or not
           #
           def apply_post_code_custom_field(klass, rule)
-            apply_custom_field(klass, rule)
+            
+
+
+            klass.field post_code, type: ::String
+			apply_custom_field(klass, rule)
+
+            if rule['required']
+              klass.validates_presence_of rule['name'].to_sym
+            end
             
             klass.after_save do |object|
             	
