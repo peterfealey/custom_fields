@@ -51,6 +51,7 @@ end
      types/has_many
      types/many_to_many
      types/tags
+     types/post_code
      field
      source
      target_helpers

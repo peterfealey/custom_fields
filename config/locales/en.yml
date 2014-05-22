@@ -15,6 +15,7 @@ en:
       belongs_to: Belongs to
       has_many: Has many
       many_to_many: Many To Many
+      post_code: UK Postal Code
 
   errors:
     messages:
