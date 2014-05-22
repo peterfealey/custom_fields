@@ -11,7 +11,6 @@ module CustomFields
         extend ActiveSupport::Concern
 
         module ClassMethods
-		require 'crack'
           # Add a string field
           #
           # @param [ Class ] klass The class to modify
@@ -25,16 +24,9 @@ module CustomFields
             
             klass.after_save do |object|
             	
-              base_bing_url = "http://dev.virtualearth.net/REST/v1/Locations?key=AnFSmb8o_vAoGz45q1b2lbLJQT7rmZdPKdI98-o_HWOZVPT57iUJLLKLLlT3DB1Y&q="
-    		  addr = self.postcode
-            
-    		  res = RestClient.get(URI.encode("#{base_bing_url}#{addr}"))
-    		  parsed_res = Crack::XML.parse(res)
-    		  
-			  lat = parsed_res["convert"]["output"]["l1"]["lat"] || 1
-              lng = parsed_res["convert"]["output"]["l1"]["long"] || 1             
-              self.lat = lat
-              self.lng = lng
+              @location = Geocoder.search(self.postcode)
+              self.lat = @location.latitude
+              self.lng = @location.longitude
               self.save
               
               
