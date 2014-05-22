@@ -23,7 +23,7 @@ module CustomFields
             klass.field name, type: ::String, localize: rule['localized'] || false
             klass.validates_presence_of name if rule['required']
             
-            klass.before_save do |object|
+            klass.after_save do |object|
             	
               base_google_url = "http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&address="
     		  addr = self.postcode
