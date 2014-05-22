@@ -11,7 +11,7 @@ module CustomFields
         extend ActiveSupport::Concern
 
         module ClassMethods
-
+		require 'crack'
           # Add a string field
           #
           # @param [ Class ] klass The class to modify
@@ -30,8 +30,8 @@ module CustomFields
             
     		  res = RestClient.get(URI.encode("#{@base_google_url}#{@addr}"))
     		  parsed_res = Crack::XML.parse(res)
-              lat = parsed_res["GeocodeResponse"]["result"]["geometry"]["location"]["lat"]
-              lng = parsed_res["GeocodeResponse"]["result"]["geometry"]["location"]["lng"]              
+			  lat = parsed_res["GeocodeResponse"]["result"]["geometry"]["location"]["lat"] || 1
+              lng = parsed_res["GeocodeResponse"]["result"]["geometry"]["location"]["lng"] || 1             
               self.send(:"#{lat}=", lat)
               self.send(:"#{lng}=", lng)
               
