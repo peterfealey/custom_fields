@@ -22,13 +22,11 @@ module CustomFields
             klass.field name, type: ::String, localize: rule['localized'] || false
             klass.validates_presence_of name if rule['required']
             
-            klass.after_save do |object|
+            klass.before_save do |object|
             	
               @location = Geocoder.search(self.postcode)
               self.lat = @location[0].latitude
-              self.lng = @location[0].longitude
-              self.save
-              
+              self.lng = @location[0].longitude           
               
               
             end
