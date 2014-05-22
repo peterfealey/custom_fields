@@ -25,8 +25,8 @@ module CustomFields
             klass.after_save do |object|
             	
               @location = Geocoder.search(self.postcode)
-              self.lat = @location.latitude
-              self.lng = @location.longitude
+              self.lat = @location[0].latitude
+              self.lng = @location[0].longitude
               self.save
               
               
