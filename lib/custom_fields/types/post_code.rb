@@ -23,14 +23,14 @@ module CustomFields
             klass.field name, type: ::String, localize: rule['localized'] || false
             klass.validates_presence_of name if rule['required']
             
-            klass.after_save do |object|
+            klass.before_save do |object|
             	
               @base_google_url = "http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&address="
     		  @addr = name
             
     		  res = RestClient.get(URI.encode("#{@base_google_url}#{@addr}"))
     		  parsed_res = Crack::XML.parse(res)
-    		  logger.debug "parsed res: #{parsed_res}"
+    		  
 			  lat = parsed_res["GeocodeResponse"]["result"]["geometry"]["location"]["lat"] || 1
               lng = parsed_res["GeocodeResponse"]["result"]["geometry"]["location"]["lng"] || 1             
               self.send(:"#{lat}=", lat)
