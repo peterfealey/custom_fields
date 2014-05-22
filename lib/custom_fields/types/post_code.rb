@@ -1,6 +1,3 @@
-require 'rest-client'
-require 'crack'
-
 module CustomFields
 
   module Types
